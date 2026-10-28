@@ -1,0 +1,39 @@
+@model List<Movie>
+@{ ViewData["Title"] = "Фільми"; }
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Фільми</h1>
+    <a class="btn btn-primary" asp-action="Create">Додати фільм</a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Фільмів поки немає.</div>
+}
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+    @foreach (var m in Model)
+    {
+        <div class="col">
+            <div class="card h-100">
+                @if (!string.IsNullOrEmpty(m.PosterPath))
+                {
+                    <img src="@m.PosterPath" class="card-img-top" alt="@m.Title" style="height:320px;object-fit:cover" />
+                }
+                else
+                {
+                    <div class="bg-secondary-subtle d-flex align-items-center justify-content-center" style="height:320px">Без постера</div>
+                }
+                <div class="card-body">
+                    <h5 class="card-title">@m.Title</h5>
+                    <p class="card-text text-muted">@m.Year @(string.IsNullOrEmpty(m.Genre) ? "" : "· " + m.Genre)</p>
+                </div>
+                <div class="card-footer d-flex gap-2">
+                    <a class="btn btn-sm btn-outline-primary" asp-action="Details" asp-route-id="@m.Id">Деталі</a>
+                    <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@m.Id">Змінити</a>
+                    <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@m.Id">Видалити</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

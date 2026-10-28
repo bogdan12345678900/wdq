@@ -1,0 +1,35 @@
+@model Movie
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<div class="mb-3">
+    <label asp-for="Title" class="form-label"></label>
+    <input asp-for="Title" class="form-control" />
+    <span asp-validation-for="Title" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="Description" class="form-label"></label>
+    <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+    <span asp-validation-for="Description" class="text-danger"></span>
+</div>
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <label asp-for="Year" class="form-label"></label>
+        <input asp-for="Year" class="form-control" />
+        <span asp-validation-for="Year" class="text-danger"></span>
+    </div>
+    <div class="col-md-8 mb-3">
+        <label asp-for="Genre" class="form-label"></label>
+        <input asp-for="Genre" class="form-control" />
+        <span asp-validation-for="Genre" class="text-danger"></span>
+    </div>
+</div>
+<div class="mb-3">
+    <label class="form-label">Постер</label>
+    @if (!string.IsNullOrEmpty(Model.PosterPath))
+    {
+        <div class="mb-2"><img src="@Model.PosterPath" alt="poster" style="max-height:160px" class="rounded" /></div>
+    }
+    <input type="file" name="poster" class="form-control" accept="image/*" />
+    <span class="text-danger">@Html.ValidationMessage("poster")</span>
+</div>
